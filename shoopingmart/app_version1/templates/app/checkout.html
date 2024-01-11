@@ -1,0 +1,86 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Checkout
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-sm-6">
+        <h4>Order Summary</h4>
+        <hr />
+        {% for i in cart_items %}
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5>Product: {{ i.product.title }}</h5>
+              <p>Quantity: {{ i.quantity }}</p>
+              <p class="fw-bold">Price: {{ i.total_cost }}</p>
+            </div>
+          </div>
+          {% empty %}
+          <h3 class="text-center my-5">No Product Found</h3>
+        {% endfor %}
+        <p class="fw-bold">Total Amount = Rs. {{ total_amount }}</p>
+        <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+      </div>
+      <div class="col-sm-4 offset-sm-1">
+        <h4>Select Shipping Address</h4>
+        <hr />
+        <form action="/paymentdone">
+          {% for a in add %}
+            <div class="card">
+              <div class="card-body">
+                <h5>{{ a.name }}</h5>
+                <p>{{ a.locality }}, {{ a.city }}, {{ a.state }}-{{ a.zipcode }}</p>
+              </div>
+            </div>
+            <div class="form-check mt-2 mb-5">
+              <input class="form-check-input" type="radio" id="custadd{{ forloop.counter }}" name="custid" value="{{ a.id }}" />
+              <label class="form-check-label fw-bold" for="">Address: {{ forloop.counter }}</label>
+            </div>
+            {% empty %}
+            <h4 class="text-center my-5">No Address Found</h4>
+          {% endfor %}
+          <div class="text-end">
+            <button type="button" class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 200px;">Payment<i class="fa-brands fa-cc-amazon-pay ms-2"></i></button>
+          </div>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Card Details</h5>
+                  <p style="margin: 0 0 0 240px; padding: 8px 0 0 0;">&#x20B9;{{ total_amount }}</p>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select" aria-label="Default select example" required>
+                      <option selected>Card Type</option>
+                      <option value="1">Credit Card</option>
+                      <option value="2">Debit Card</option>
+                    </select>
+                    <div class="my-3">
+                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Card Numbar" required>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-sm-6">
+                        <input type="month" class="form-control" id="firstName" placeholder="Expiry MM/YY" required>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="lastName" placeholder="CVV" required>
+                      </div>
+                    <div>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cardholder's name" required>
+                    </div>
+                    <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-primary" style="width: 450px;">Pay</button>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

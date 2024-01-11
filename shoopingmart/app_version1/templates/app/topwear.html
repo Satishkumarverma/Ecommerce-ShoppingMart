@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Top Wear
+{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="list-group">
+        <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action {{btn}}" aria-current="true">All Top Wears</a>
+        <a href="{% url 'topweardata' 'Almuda' %}" class="list-group-item list-group-item-action {{btn1s}}">Almuda</a>
+        <a href="{% url 'topweardata' 'Wrogn' %}" class="list-group-item list-group-item-action {{btn1v}}">Wrogn</a>
+        <a href="{% url 'topweardata' 'Smartees' %}" class="list-group-item list-group-item-action {{btn1a}}">Smartees</a>
+        <a href="{% url 'topweardata' 'below' %}" class="list-group-item list-group-item-action {{btn2}}">Below 10000</a>
+        <a href="{% url 'topweardata' 'between' %}" class="list-group-item list-group-item-action {{btn3}}">Between 10000-20000</a>
+        <a href="{% url 'topweardata' 'above' %}" class="list-group-item list-group-item-action {{btn4}}">Above 20000</a>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        {% for tw in topwears %}
+          <div class="col-sm-4 text-center mb-4">
+            <a href="{% url 'product-detail' tw.id %}" class="btn">
+              <div class="item">
+                <img src="{{ tw.product_image.url }}" alt="Product Image" class="img-fluid" style="max-height: 100px;" />
+                <div class="fw-bold">{{ tw.title }}</div>
+                <div class="fw-bold">Rs. {{ tw.discounted_price }}</div>
+                <div class="fw-light text-decoration-line-through">{{ tw.selling_price }}</div>
+              </div>
+            </a>
+          </div>
+          {% empty %}
+          <h1 class="text-center">No Product Found</h1>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

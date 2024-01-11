@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Laptop
+{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="list-group">
+        <a href="{% url 'laptop' %}" class="list-group-item list-group-item-action {{btn}}" aria-current="true">All Laptops</a>
+        <a href="{% url 'laptopdata' 'Apple' %}" class="list-group-item list-group-item-action {{btn1s}}">Apple</a>
+        <a href="{% url 'laptopdata' 'HP' %}" class="list-group-item list-group-item-action {{btn1v}}">HP</a>
+        <a href="{% url 'laptopdata' 'Lenovo' %}" class="list-group-item list-group-item-action {{btn1a}}">Lenovo</a>
+        <a href="{% url 'laptopdata' 'below' %}" class="list-group-item list-group-item-action {{btn2}}">Below 10000</a>
+        <a href="{% url 'laptopdata' 'between' %}" class="list-group-item list-group-item-action {{btn3}}">Between 10000-20000</a>
+        <a href="{% url 'laptopdata' 'above' %}" class="list-group-item list-group-item-action {{btn4}}">Above 20000</a>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        {% for l in laptops %}
+          <div class="col-sm-4 text-center mb-4">
+            <a href="{% url 'product-detail' l.id %}" class="btn">
+              <div class="item">
+                <img src="{{ l.product_image.url }}" alt="Product Image" class="img-fluid" style="max-height: 100px;" />
+                <div class="fw-bold">{{ l.title }}</div>
+                <div class="fw-bold">Rs. {{ l.discounted_price }}</div>
+                <div class="fw-light text-decoration-line-through">{{ l.selling_price }}</div>
+              </div>
+            </a>
+          </div>
+          {% empty %}
+          <h1 class="text-center">No Product Found</h1>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

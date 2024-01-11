@@ -1,0 +1,35 @@
+.min_slider .item {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.min_slider .owl-prev {
+    position: absolute;
+    left: 0;
+    top: 100px;
+}
+
+.min_slider .owl-next {
+    position: absolute;
+    right: 0;
+    top: 100px;
+} 
+
+.min_slider .owl-prev span {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.min_slider .owl-next span {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.min_slider .owl-prev span:active {
+    color: red;
+}
+
+.min_slider .owl-next span:active {
+    color: red;
+}

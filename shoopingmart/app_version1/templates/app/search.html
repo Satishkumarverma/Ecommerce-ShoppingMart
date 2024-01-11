@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+  Search
+{% endblock %}
+{% block content %}
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="list-group text-center">
+          <a class="list-group-item list-group-item-action active" aria-current="true">All Product for {{find}}</a>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        {% for x in search %}
+          <a href="{% url 'product-detail' x.id %}" class="btn">
+            <div class="row shadow-sm mb-4">
+              <div class="col-sm-2">
+                <img src="{{ x.product_image.url }}" class="img-fluid p-2 mt-3" alt="image" height="400" />
+              </div>
+              <div class="col-sm-7 text-start">
+                <h4 class="my-3">{{ x.title }}</h4>
+                <h5>Brand: {{x.brand}}</h5>
+                <p>{{x.discription}}</p>
+                <p></p><p ></p>
+              </div>
+              <div class="col-sm-3">
+                <h4 class="mt-5">&#x20B9;{{ x.discounted_price }}</h4>
+                <h5 class="fw-light text-decoration-line-through">&#x20B9;{{x.selling_price}}</h5>
+              </div>
+            </div>
+          </a>
+          {% empty %}
+          <h1 class="text-center my-5">No Product Found</h1>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
